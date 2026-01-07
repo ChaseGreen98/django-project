@@ -1,0 +1,8 @@
+{% extends "root.html" %}
+{% block content %}
+<form action= '{% url "login" %}' method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Submit</button>
+</form>
+{% endblock content %}
