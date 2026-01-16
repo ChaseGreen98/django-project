@@ -1,4 +1,187 @@
 {% extends "root.html" %}
+{% load extra_filters %}
+
 {% block content %}
 
-{% endblock content %}
+<div class="builder-header">
+
+    <div class="builder-nav">
+        <a href="{% url 'landing' %}">
+            <button>🏠 Back to Landing</button>
+        </a>
+
+        <a href="{% url 'pc-list' %}">
+            <button>🗂️ My Builds</button>
+        </a>
+    </div>
+
+    <div class="builder-title">
+        <form method="post" action="{% url 'builder' computer.id %}">
+            {% csrf_token %}
+            <input type="text" name="name" value="{{ computer.name }}">
+            <button type="submit">Rename</button>
+        </form>
+    </div>
+
+</div>
+
+<hr>
+
+<div class="pc-info-container">
+
+<!-- CPU -->
+<div class="part-slot">
+    <h3>CPU</h3>
+    {% if computer.cpu %}
+        <p>{{ computer.cpu.brand }} {{ computer.cpu.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'cpu' computer.cpu.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'cpu' %}">
+            <button>Select CPU</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- GPU -->
+<div class="part-slot">
+    <h3>GPU</h3>
+    {% if computer.gpu %}
+        <p>{{ computer.gpu.brand }} {{ computer.gpu.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'gpu' computer.gpu.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'gpu' %}">
+            <button>Select GPU</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Motherboard -->
+<div class="part-slot">
+    <h3>Motherboard</h3>
+    {% if computer.motherboard %}
+        <p>{{ computer.motherboard.brand }} {{ computer.motherboard.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'motherboard' computer.motherboard.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'motherboard' %}">
+            <button>Select Motherboard</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Memory -->
+<div class="part-slot">
+    <h3>Memory</h3>
+    {% if computer.memory %}
+        <p>{{ computer.memory.brand }} {{ computer.memory.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'memory' computer.memory.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'memory' %}">
+            <button>Select Memory</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Storage -->
+<div class="part-slot">
+    <h3>Storage</h3>
+    {% if computer.storagedrive %}
+        <p>{{ computer.storagedrive.brand }} {{ computer.storagedrive.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'storagedrive' computer.storagedrive.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'storagedrive' %}">
+            <button>Select Storage</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- PSU -->
+<div class="part-slot">
+    <h3>Power Supply</h3>
+    {% if computer.psu %}
+        <p>{{ computer.psu.brand }} {{ computer.psu.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'psu' computer.psu.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'psu' %}">
+            <button>Select PSU</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Case -->
+<div class="part-slot">
+    <h3>Case</h3>
+    {% if computer.case %}
+        <p>{{ computer.case.brand }} {{ computer.case.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'case' computer.case.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'case' %}">
+            <button>Select Case</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- CPU Cooler -->
+<div class="part-slot">
+    <h3>CPU Cooler</h3>
+    {% if computer.cpucooler %}
+        <p>{{ computer.cpucooler.brand }} {{ computer.cpucooler.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'cpucooler' computer.cpucooler.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'cpucooler' %}">
+            <button>Select Cooler</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Fans -->
+<div class="part-slot">
+    <h3>Case Fans</h3>
+    {% if computer.fan %}
+        <p>{{ computer.fan.brand }} {{ computer.fan.model }}</p>
+        <form method="post" action="{% url 'add_part' computer.id 'fan' computer.fan.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="1">
+            <button type="submit">Remove</button>
+        </form>
+    {% else %}
+        <a href="{% url 'part_list' computer.id 'fan' %}">
+            <button>Select Fans</button>
+        </a>
+    {% endif %}
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "root.html" %}
+{% block content %}
+<div class="nav">
+    <a href="{% url 'landing' %}">
+        <button>🏠 Back to Landing</button>
+    </a>
+</div>
+
+<div class="user-list">
+    {% for person in page_obj %}
+        <div class="user-cards">
+            <p>{{person.username}}</p>
+            {% if request.user.is_staff %}
+                <form method="post" action="{% url 'admin-delete' person.pk %}">
+                    {% csrf_token %}
+                    <button type="submit">Ban User</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">
+            ← Previous
+        </a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}">
+            Next →
+        </a>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "root.html" %}
+{% load extra_filters %}
+
+{% block content %}
+
+<div class="part-list-header">
+    <h2>Select {{ part_type|capfirst }}</h2>
+
+    <a href="{% url 'builder' computer.id %}">
+        <button type="button">← Back to Builder</button>
+    </a>
+</div>
+
+<form method="get" class="search-form">
+    <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+<div class="parts-list">
+    {% for part in page_obj %}
+        <div class="part-card">
+
+            {% for field_name in field_names %}
+                {% if field_name != "id" %}
+                    <p>
+                        <strong>{{ field_name|capfirst }}:</strong>
+                        {{ part|attr:field_name }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+
+            <form method="post" action="{% url 'add_part' computer.id part_type part.id %}">
+                {% csrf_token %}
+                <button type="submit">Add to Build</button>
+            </form>
+
+        </div>
+    {% empty %}
+        <p>No parts found.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">
+            ← Previous
+        </a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}">
+            Next →
+        </a>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,4 +1,47 @@
 {% extends "root.html" %}
 {% block content %}
 
-{% endblock content %}
+<div class="pc-list-header">
+    <a href="{% url 'landing' %}">
+        <button>🏠 Back to Landing</button>
+    </a>
+</div>
+<h1>My Builds</h1>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Search by name" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if page_obj %}
+    <ul class="computer-list">
+        {% for computer in page_obj %}
+            <li>
+                <strong>{{ computer.name }}</strong>
+                <a href="{% url 'builder' computer.pk %}">View / Edit Build</a>
+
+                <form method="post" action="{% url 'delete_computer' computer.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Delete this build? This cannot be undone.')">
+                        🗑 Delete
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
+        {% endif %}
+    </div>
+{% else %}
+    <p>You have no builds yet.</p>
+{% endif %}
+{% endblock %}

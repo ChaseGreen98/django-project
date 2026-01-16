@@ -1,8 +1,21 @@
 {% extends "root.html" %}
+
 {% block content %}
-<form action= '{% url "sign_up" %}' method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>Submit</button>
-</form>
-{% endblock content %}
+<div class="auth-container" style="max-width: 400px; margin: auto; padding: 2rem; border: 2px solid #ccc;">
+
+    <h2>Sign Up</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p style="margin-top: 1rem;">
+        Already have an account?
+        <a href="{% url 'login' %}">
+            <button type="button">Login</button>
+        </a>
+    </p>
+</div>
+{% endblock %}

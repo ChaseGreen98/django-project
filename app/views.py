@@ -1,52 +1,280 @@
-import asyncio
-import sys
-from pcpartpicker import API
-from django.shortcuts import render, redirect
+import random
+from app.models import *
+from django.db.models import Q, Count
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash, logout, get_user_model
 from app.forms import (
     CustomUserCreationForm,
     CustomAuthenticationForm,
+    CustomPasswordChangeForm,
+    UserUpdateForm,
 )
 
-
-api = API()
-
-if sys.platform.startswith("win"):
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+User = get_user_model()
 
 def root_view(request: HttpRequest) -> HttpResponse:
     return render(request, "root.html")
 
+
 def sign_up_view(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
-
         if form.is_valid():
             user = form.save()
-            login(request, user)  
+            login(request, user)
             return redirect("landing")
-
     else:
         form = CustomUserCreationForm()
-
     return render(request, "sign_up.html", {"form": form})
 
 
 def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = CustomAuthenticationForm(request, data=request.POST)
-
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
+            login(request, form.get_user())
             return redirect("landing")
-
     else:
-        form = CustomAuthenticationForm(request)
-
+        form = CustomAuthenticationForm()
     return render(request, "login.html", {"form": form})
 
-    
+
+@login_required
 def landing_view(request):
-    pass
+    all_computers = Computer.objects.all()
+    random_computer = random.choice(all_computers) if all_computers else None
+
+    user_computers = request.user.computers.all()  
+
+    return render(request, "landing.html", {
+        "random_computer": random_computer,
+        "user_computers": user_computers,
+    })
+
+@login_required
+def pc_list_view(request):
+    user_computers = request.user.computers.all().order_by("name")
+
+    query = request.GET.get("q", "").strip()
+    if query:
+        user_computers = user_computers.filter(name__icontains=query)
+
+    paginator = Paginator(user_computers, 10)  # 10 computers per page
+    page_obj = paginator.get_page(request.GET.get("page"))
+
+    return render(request, "pc_list.html", {
+        "page_obj": page_obj,
+        "query": query,
+    })
+
+@login_required
+def account_view(request):
+    return render(request, "account.html")
+
+@login_required
+def social_view(request):
+    query = request.GET.get("q", "")
+    
+    if request.method == "POST":
+        subject = request.POST.get("subject")
+        usernames = request.POST.get("usernames", "").split(",")
+        conversation = Conversation.objects.create(subject=subject)
+        conversation.participants.add(request.user)
+
+        for username in usernames:
+            username = username.strip()
+            try:
+                user = User.objects.get(username=username)
+                conversation.participants.add(user)
+            except User.DoesNotExist:
+                pass  
+
+        return redirect("chat-room", conversation_id=conversation.id)
+
+    conversations = Conversation.objects.all()
+    if query:
+        conversations = conversations.filter(subject__icontains=query)
+    
+    conversations = conversations.annotate(
+        num_messages=models.Count('messages')
+    ).order_by('-num_messages')
+
+    paginator = Paginator(conversations, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "social.html", {
+        "page_obj": page_obj,
+        "query": query,
+    })
+
+
+@login_required
+def password_change_view(request):
+    if request.method == "POST":
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, request.user)
+            return redirect("landing")
+    else:
+        form = CustomPasswordChangeForm(user=request.user)
+    return render(request, "change.html", {"form": form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+
+@login_required
+def user_update_view(request):
+    if request.method == "POST":
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("landing")
+    else:
+        form = UserUpdateForm(instance=request.user)
+    return render(request, "update.html", {"form": form})
+
+@login_required
+def delete_view(request):
+    if request.method == "POST":
+        user = request.user
+        logout(request)
+        user.delete()
+
+        return redirect("landing")
+    return redirect("account")
+
+@login_required
+def generic_part_list(request, pk, part_type):
+    computer = get_object_or_404(Computer, pk=pk, owner=request.user)
+
+    part_models = {
+        "cpu": CPU,
+        "gpu": GPU,
+        "memory": Memory,
+        "motherboard": Motherboard,
+        "storagedrive": StorageDrive,
+        "cpucooler": CPUCooler,
+        "psu": PSU,
+        "case": Case,
+        "fan": CaseFans,
+    }
+
+    model_class = part_models.get(part_type)
+    if not model_class:
+        return redirect("builder", pk=pk)
+
+    parts = model_class.objects.all().order_by("brand", "model")
+
+    query = request.GET.get("q", "").strip()
+    if query:
+        parts = parts.filter(
+            Q(brand__icontains=query) |
+            Q(model__icontains=query)
+        )
+
+    paginator = Paginator(parts, 10)
+    page_obj = paginator.get_page(request.GET.get("page"))
+
+    field_names = [f.name for f in model_class._meta.get_fields() if not f.is_relation]
+
+    return render(request, "part_list.html", {
+        "computer": computer,
+        "part_type": part_type,
+        "page_obj": page_obj,
+        "query": query,
+        "field_names": field_names,  
+    })
+
+
+@login_required
+def builder_view(request, pk):
+    computer = get_object_or_404(Computer, pk=pk, owner=request.user)
+    if request.method == "POST" and "name" in request.POST:
+        computer.name = request.POST["name"]
+        computer.save()
+        return redirect("builder", pk=pk)
+    return render(request, "builder.html", {"computer": computer})
+
+
+@require_POST
+@login_required
+def create_computer(request):
+    label = request.POST.get("label", "New Computer")
+    computer = Computer.objects.create(owner=request.user, name=label)
+    return redirect("builder", pk=computer.pk)
+
+@login_required
+def delete_computer(request, pk):
+    computer = get_object_or_404(Computer, pk=pk, owner=request.user)
+
+    if request.method == "POST":
+        computer.delete()
+        return redirect("pc_list")
+
+    return redirect("pc_list")
+
+
+@require_POST
+@login_required
+def add_part(request, pk, part_type, part_id):
+    computer = get_object_or_404(Computer, pk=pk, owner=request.user)
+
+    part_models = {
+        "cpu": CPU,
+        "gpu": GPU,
+        "memory": Memory,
+        "motherboard": Motherboard,
+        "storagedrive": StorageDrive,
+        "cpucooler": CPUCooler,
+        "psu": PSU,
+        "case": Case,
+        "fan": CaseFans,
+    }
+
+    model = part_models.get(part_type)
+    if not model:
+        return redirect("builder", pk=pk)
+
+    part = get_object_or_404(model, pk=part_id)
+    setattr(computer, part_type, part)
+    computer.save()
+
+    return redirect("builder", pk=pk)
+
+@login_required
+def chat_room_view(request, conversation_id):
+    conversation = get_object_or_404(Conversation, id=conversation_id)
+    messages = conversation.messages.order_by("timestamp").all()
+    return render(request, "chat_room.html", {
+        "conversation": conversation,
+        "messages": messages,
+        "user": request.user,
+    })
+
+@staff_member_required
+@login_required
+def admin_view(request):
+    users = User.objects.all()
+    paginator = Paginator(users, 10)
+    page_obj = paginator.get_page(request.GET.get("page"))
+    return render(request, "admin.html", {"page_obj": page_obj})
+
+@staff_member_required
+@require_POST         
+def admin_delete(request, pk):
+    target = get_object_or_404(User, pk=pk)
+    
+    if target == request.user:
+        return redirect("admin") 
+        
+    target.delete()
+    return redirect("admin")

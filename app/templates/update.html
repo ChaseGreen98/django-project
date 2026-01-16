@@ -1,0 +1,17 @@
+{% extends "root.html" %}
+
+{% block content %}
+<h2>Update Your Account</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div style="margin-top: 1rem;">
+        <button type="submit">Save Changes</button>
+        <a href="{% url 'landing' %}">
+            <button type="button">Cancel</button>
+        </a>
+    </div>
+</form>
+{% endblock %}

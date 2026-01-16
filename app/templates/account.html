@@ -1,0 +1,51 @@
+{% extends "root.html" %}
+{% block content %}
+
+<h1>My Account</h1>
+
+<div class="account-container">
+
+    <!-- Navigation -->
+    <div class="account-nav">
+        <a href="{% url 'landing' %}">
+            <button>← Back to Home</button>
+        </a>
+    </div>
+
+    <hr>
+
+    <!-- User Info -->
+    <div class="account-info">
+        <h2>Account Information</h2>
+
+        <p><strong>Username:</strong> {{ request.user.username }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <p><strong>First name:</strong> {{ request.user.first_name }}</p>
+        <p><strong>Last name:</strong> {{ request.user.last_name }}</p>
+    </div>
+
+    <hr>
+
+    <!-- Account Actions -->
+    <div class="account-actions">
+        <h2>Account Actions</h2>
+
+        <a href="{% url 'update' %}">
+            <button>Update Profile</button>
+        </a>
+
+        <a href="{% url 'change' %}">
+            <button>Change Password</button>
+        </a>
+
+        <form method="post" action="{% url 'account-delete' %}">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Are you sure? This will permanently delete your account and all your builds.')">
+                Delete My Account
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
