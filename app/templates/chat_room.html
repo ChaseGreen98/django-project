@@ -3,13 +3,11 @@
 {% block content %}
 <div class="chat-window">
 
-    <!-- Header -->
     <div class="chat-header">
         <h2>Chat Room: {{ conversation.subject }}</h2>
         <a href="{% url 'social' %}"><button class="chat-leave-button">Leave Room</button></a>
     </div>
 
-    <!-- Chat Log -->
     <div id="chat-log" class="chat-log">
         {% for message in messages %}
             <div class="chat-message">
@@ -18,7 +16,6 @@
         {% endfor %}
     </div>
 
-    <!-- Input -->
     <div class="chat-input-container">
         <input id="chat-message-input" type="text" placeholder="Type your message..." class="chat-input">
         <button id="chat-message-submit" class="chat-send-button">Send</button>
@@ -36,7 +33,6 @@ const submit = document.getElementById("chat-message-submit");
 
 const socket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + conversationId + "/");
 
-// Append a message to chat log
 function addMessage(username, message, timestamp) {
     const line = document.createElement("div");
     line.textContent = `[${timestamp}] ${username}: ${message}`;

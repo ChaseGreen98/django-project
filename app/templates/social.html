@@ -4,12 +4,11 @@
 
 <div class="desktop">
 
-    <!-- Chat Rooms List (Left Panel) -->
+    <!-- Chat Rooms List -->
     <div class="window social-window">
         <div class="window-titlebar">Tech Connect</div>
         <div class="window-content">
 
-            <!-- Filter Buttons -->
             <div class="chat-room-toggle">
                 <a href="?filter=popular">
                     <button class="form-button" {% if filter_type == "popular" %}disabled{% endif %}>Most Popular</button>
@@ -19,7 +18,6 @@
                 </a>
             </div>
 
-            <!-- Chat Rooms List -->
             {% if page_obj %}
                 <ul class="rooms">
                     {% for room in page_obj %}
@@ -32,7 +30,6 @@
                     {% endfor %}
                 </ul>
 
-                <!-- Pagination -->
                 <div class="pagination">
                     {% if page_obj.has_previous %}
                         <a href="?filter={{ filter_type }}&page={{ page_obj.previous_page_number }}">← Previous</a>
@@ -49,7 +46,7 @@
         </div>
     </div>
 
-    <!-- Create Room Panel (Right) -->
+    <!-- Create Room Panel -->
     <div class="window social-window right-window">
         <div class="window-titlebar">Create Chat Room</div>
         <div class="window-content">

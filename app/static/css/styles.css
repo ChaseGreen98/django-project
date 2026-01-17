@@ -235,7 +235,7 @@ label {
     padding: 1rem;
     display: flex;
     gap: 2rem;
-    align-items: center; /* vertical centering */
+    align-items: center; 
     justify-content: flex-start;
 }
 
@@ -244,14 +244,14 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0; /* prevents shrinking */
-    margin-left: 100px; /* pushes it further to the right */
+    flex-shrink: 0; 
+    margin-left: 100px; 
 }
 
 .desktop-logo img {
-    max-width: 300px; /* roughly twice as big as before */
+    max-width: 300px; 
     height: auto;
-    opacity: 0.6; /* subtle faded look */
+    opacity: 0.6; 
 }
 
 /* ICONS */
@@ -270,7 +270,6 @@ label {
     color: white;
 }
 
-/* shared icon content */
 .icon-frame {
     background: #c0c0c0;
     border: 2px outset #ffffff;
@@ -278,13 +277,11 @@ label {
     color: black;
 }
 
-/* icon labels */
 .icon-frame span {
     display: block;
     margin-top: 0.25rem;
 }
 
-/* hover + press states */
 .desktop-icon:hover .icon-frame {
     background: #d4d4d4;
 }
@@ -395,7 +392,6 @@ label {
     font-weight: bold;
 }
 
-/* PC INFO CONTAINER */
 .pc-info-container {
     display: flex;
     flex-wrap: wrap;
@@ -404,7 +400,6 @@ label {
     justify-content: flex-start;
 }
 
-/* INDIVIDUAL PART SLOTS */
 .part-slot {
     background: #c0c0c0;
     border: 2px solid #000;
@@ -419,10 +414,9 @@ label {
 }
 
 .part-slot:hover {
-    background: #d4d0c8; /* slightly lighter gray on hover */
+    background: #d4d0c8; 
 }
 
-/* HEADER OF SLOT */
 .part-slot h3 {
     background: #000080;
     color: white;
@@ -433,7 +427,6 @@ label {
     text-align: center;
 }
 
-/* PART INFO TEXT */
 .part-slot p {
     background: #e0e0e0;
     border: 2px inset #ffffff;
@@ -443,7 +436,6 @@ label {
     text-align: center;
 }
 
-/* REMOVE / SELECT BUTTONS */
 .part-slot button, 
 .part-slot a button {
     background: #c0c0c0;
@@ -560,7 +552,6 @@ label {
     border: 2px inset #ffffff;
 }
 
-/* PAGINATION */
 .pagination {
     display: flex;
     gap: 1rem;
@@ -586,7 +577,7 @@ label {
 }
 
 
-/* PC LIST / MY BUILDS */
+/* PC LIST  */
 .pc-list-header {
     display: flex;
     align-items: center;
@@ -691,13 +682,11 @@ h1 {
     border: 2px inset #ffffff;
 }
 
-/* Hover highlights for computer list items */
 .computer-list li:hover {
-    background: #d4d4d4; /* Slightly lighter gray */
+    background: #d4d4d4; 
     box-shadow: inset -2px -2px #a0a0a0, inset 2px 2px #ffffff;
 }
 
-/* Hover for buttons and links */
 .computer-list a:hover,
 .computer-list button:hover,
 .search-form button:hover,
@@ -707,7 +696,6 @@ h1 {
     border: 2px outset #ffffff;
 }
 
-/* Active state to mimic old-school inset button press */
 .computer-list a:active,
 .computer-list button:active,
 .search-form button:active,
@@ -717,7 +705,6 @@ h1 {
 }
 
 
-/* Pagination */
 .pagination {
     margin-top: 1rem;
     display: flex;
@@ -743,17 +730,16 @@ h1 {
 }
 
 
-/* Admin Container for Side-by-Side Layout */
 .admin-container {
     display: flex;
     gap: 2rem;
-    flex-wrap: wrap; /* allows stacking on small screens */
+    flex-wrap: wrap; 
     justify-content: center;
 }
 
 /* Admin Windows Panels */
 .admin-section {
-    flex: 1 1 300px; /* grow, shrink, min-width */
+    flex: 1 1 300px; 
 }
 
 .admin-window {
@@ -775,7 +761,6 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* User and Chat Cards */
 .user-card {
     background: #d4d4d4;
     border: 2px solid #808080;
@@ -788,7 +773,6 @@ h1 {
     box-shadow: inset -1px -1px #a0a0a0, inset 1px 1px #ffffff;
 }
 
-/* Buttons */
 .user-card button,
 .search-form button,
 .nav-button {
@@ -810,14 +794,12 @@ h1 {
     border: 2px inset #ffffff;
 }
 
-/* Search Inputs */
 .search-form input[type="text"] {
     border: 2px inset #ffffff;
     padding: 2px 4px;
     margin-right: 0.5rem;
 }
 
-/* Pagination */
 .pagination {
     margin-top: 1rem;
     display: flex;
@@ -850,20 +832,18 @@ h1 {
     margin: 2rem auto;
 }
 
-/* Side by Side Windows */
 .account-windows-sideby {
     display: flex;
     gap: 1.5rem;
-    flex-wrap: wrap; /* ensures it doesn't break on smaller screens */
+    flex-wrap: wrap; 
 }
 
-/* Windows Style Panels */
 .account-window {
     background: #c0c0c0;
     border: 2px solid #000;
     box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
-    flex: 1; /* evenly splits available space */
-    min-width: 300px; /* ensures it doesn't shrink too small */
+    flex: 1; 
+    min-width: 300px; 
 }
 
 .window-titlebar {
@@ -878,7 +858,6 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* Buttons */
 .nav-button,
 .action-button {
     background: #c0c0c0;
@@ -899,7 +878,6 @@ h1 {
 }
 
 
-/* FORM WINDOWS */
 .form-window {
     background: #c0c0c0;
     border: 2px solid #000;
@@ -920,7 +898,6 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* FORM BUTTONS */
 .form-button {
     background: #c0c0c0;
     border: 2px outset #ffffff;
@@ -938,7 +915,6 @@ h1 {
 }
 
 
-/* FORM WINDOWS */
 .form-window {
     background: #c0c0c0;
     border: 2px solid #000;
@@ -959,7 +935,6 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* FORM BUTTONS */
 .form-button {
     background: #c0c0c0;
     border: 2px outset #ffffff;
@@ -1003,13 +978,12 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* Fix input width so it doesn't touch window edges */
 .social-window .form-input {
-    width: 95%;       /* leave a little space on the right */
+    width: 95%;       
     padding: 4px 6px;
     border: 2px inset #ffffff;
     font-size: 0.9rem;
-    box-sizing: border-box; /* ensures padding & border are included in width */
+    box-sizing: border-box; 
 }
 
 /* Chat Rooms List */
@@ -1031,7 +1005,6 @@ h1 {
     background: #d4d4d4;
 }
 
-/* Form Fields */
 .form-field {
     margin-bottom: 0.75rem;
 }
@@ -1047,7 +1020,6 @@ h1 {
     border: 2px outset #ffffff;
 }
 
-/* Buttons */
 .form-button {
     background: #c0c0c0;
     border: 2px outset #ffffff;
@@ -1138,7 +1110,6 @@ h1 {
     border: 2px inset #ffffff;
 }
 
-/* Hover highlight for messages */
 .chat-message:hover {
     background: #d4d4d4;
 }

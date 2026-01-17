@@ -17,7 +17,6 @@
             <div class="window-titlebar">Users</div>
             <div class="window-content">
 
-                <!-- Users Search -->
                 <form method="get" class="search-form">
                     <input type="text" name="user_q" placeholder="Search users..." value="{{ user_query }}">
                     <input type="hidden" name="chat_q" value="{{ chat_query }}">
@@ -40,7 +39,6 @@
                     {% endfor %}
                 </div>
 
-                <!-- Pagination -->
                 <div class="pagination">
                     {% if user_page_obj.has_previous %}
                         <a href="?user_page={{ user_page_obj.previous_page_number }}&chat_page={{ chat_page_obj.number }}&user_q={{ user_query }}&chat_q={{ chat_query }}">
@@ -60,14 +58,13 @@
     </div>
 
     <!-- =======================
-         CHAT ROOMS SECTION (Right)
+         CHAT ROOMS SECTION 
     ======================= -->
     <div class="admin-section">
         <div class="window admin-window">
             <div class="window-titlebar">Chat Rooms</div>
             <div class="window-content">
 
-                <!-- Chat Rooms Search -->
                 <form method="get" class="search-form">
                     <input type="text" name="chat_q" placeholder="Search chat rooms..." value="{{ chat_query }}">
                     <input type="hidden" name="user_q" value="{{ user_query }}">
@@ -91,7 +88,6 @@
                     {% endfor %}
                 </div>
 
-                <!-- Pagination -->
                 <div class="pagination">
                     {% if chat_page_obj.has_previous %}
                         <a href="?chat_page={{ chat_page_obj.previous_page_number }}&user_page={{ user_page_obj.number }}&user_q={{ user_query }}&chat_q={{ chat_query }}">
