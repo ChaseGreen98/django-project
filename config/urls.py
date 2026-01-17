@@ -34,7 +34,7 @@ urlpatterns = [
     path("user-update/", user_update_view, name="update"),
     path("chat/<int:conversation_id>/", chat_room_view, name="chat-room"),
     path("builder/<int:pk>/", builder_view, name="builder"),
-    path("pc-list/", pc_list_view, name="pc_list"),
+    path("pc-list/", pc_list_view, name="pc-list"),
     path("computer/delete/<int:pk>", delete_computer, name="delete_computer"),
     path("builder/create/", create_computer, name="create_computer"),
     path(
@@ -46,5 +46,10 @@ urlpatterns = [
         "builder/<int:pk>/add/<str:part_type>/<int:part_id>/",
         add_part,
         name="add_part"
+    ),
+    path(
+        "admin/chat/delete/<int:pk>/",
+        admin_delete_conversation,
+        name="admin-delete-chat"
     ),
 ]

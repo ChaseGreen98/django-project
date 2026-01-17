@@ -1,21 +1,37 @@
 {% extends "root.html" %}
 
 {% block content %}
-<div class="auth-container" style="max-width: 400px; margin: auto; padding: 2rem; border: 2px solid #ccc;">
+<div class="auth-wrapper">
 
-    <h2>Sign Up</h2>
+    <div class="win95-window auth-window">
+        <div class="win95-titlebar">
+            Create Account
+        </div>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Account</button>
-    </form>
+        <div class="win95-content">
+            <form method="POST" class="auth-form">
+                {% csrf_token %}
+                {{ form.as_p }}
 
-    <p style="margin-top: 1rem;">
-        Already have an account?
-        <a href="{% url 'login' %}">
-            <button type="button">Login</button>
-        </a>
-    </p>
+                <div class="auth-actions">
+                    <button type="submit" class="win95-button">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+
+            <hr class="win95-divider">
+
+            <div class="auth-footer">
+                <span>Already have an account?</span>
+                <a href="{% url 'login' %}">
+                    <button type="button" class="win95-button secondary">
+                        Login
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

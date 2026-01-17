@@ -1,25 +1,27 @@
 {% extends "root.html" %}
 
 {% block content %}
-<div class="chat-room-container" style="max-width:800px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
+<div class="chat-window">
 
     <!-- Header -->
-    <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div class="chat-header">
         <h2>Chat Room: {{ conversation.subject }}</h2>
-        <a href="{% url 'social' %}"><button>Leave Room</button></a>
+        <a href="{% url 'social' %}"><button class="chat-leave-button">Leave Room</button></a>
     </div>
 
     <!-- Chat Log -->
-    <div id="chat-log" style="border:1px solid #ccc; padding:0.5rem; height:400px; overflow-y:scroll; font-family:monospace;">
+    <div id="chat-log" class="chat-log">
         {% for message in messages %}
-            <div>[{{ message.timestamp|date:"Y-m-d H:i" }}] {{ message.sender.username }}: {{ message.content }}</div>
+            <div class="chat-message">
+                [{{ message.timestamp|date:"Y-m-d H:i" }}] {{ message.sender.username }}: {{ message.content }}
+            </div>
         {% endfor %}
     </div>
 
     <!-- Input -->
-    <div style="display:flex; gap:0.5rem;">
-        <input id="chat-message-input" type="text" placeholder="Type your message..." style="flex:1; padding:0.5rem;">
-        <button id="chat-message-submit">Send</button>
+    <div class="chat-input-container">
+        <input id="chat-message-input" type="text" placeholder="Type your message..." class="chat-input">
+        <button id="chat-message-submit" class="chat-send-button">Send</button>
     </div>
 
 </div>
@@ -38,6 +40,7 @@ const socket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + conv
 function addMessage(username, message, timestamp) {
     const line = document.createElement("div");
     line.textContent = `[${timestamp}] ${username}: ${message}`;
+    line.classList.add("chat-message");
     chatLog.appendChild(line);
     chatLog.scrollTop = chatLog.scrollHeight;
 }

@@ -1,14 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>PC Archive</title>
 </head>
 <body>
+    <div class="welcome-banner">
+        {% if request.user.is_authenticated %}
+            Hello {{ request.user.username }}!
+        {% else %}
+            Hello Guest!
+        {% endif %}
+    </div>
     {% block content %}
-    <a href= "{% url 'sign_up' %}">Sign Up</a>
-    <a href= "{% url 'login' %}">Login</a>
+    <div class="root-center">
+        <a href="{% url 'sign_up' %}" class="root-button">Sign Up</a>
+        <a href="{% url 'login' %}" class="root-button">Login</a>
+
+        <div class="win95-window">
+            <div class="win95-titlebar">
+                PC Archive
+            </div>
+
+            <div class="win95-content">
+                <p><strong>PC Archive v1.0</strong></p>
+                <p>
+                    Build custom PCs, join real-time tech chat rooms,
+                    and archive builds for discussion.
+                </p>
+
+                <ul>
+                    <li>PC Builder</li>
+                    <li>Live Tech Chat</li>
+                    <li>Build Archive</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     {% endblock content %}
 </body>
 </html>

@@ -1,81 +1,80 @@
 {% extends "root.html" %}
+
 {% block content %}
 
-<a href="{% url 'landing' %}">
-    <button>Back to Landing</button>
-</a>
+<div class="desktop">
 
-<div class="social-layout">
+    <!-- Chat Rooms List (Left Panel) -->
+    <div class="window social-window">
+        <div class="window-titlebar">Tech Connect</div>
+        <div class="window-content">
 
-    <!-- LEFT: Chat rooms list -->
-    <div class="chat-room-list">
-
-        <h2>Tech Connect</h2>
-
-        {% if page_obj %}
-            <ul class="rooms">
-                {% for room in page_obj %}
-                    <li class="room-card">
-                        <h3>{{ room.subject }}</h3>
-
-                        <p>
-                            {{ room.participants.count }} user{{ room.participants.count|pluralize }}
-                            · {{ room.message_count }} message{{ room.message_count|pluralize }}
-                        </p>
-
-                        <a href="{% url 'chat-room' room.id %}">
-                            <button>Join Room</button>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <div class="pagination">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                {% endif %}
-
-                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
-                {% endif %}
+            <!-- Filter Buttons -->
+            <div class="chat-room-toggle">
+                <a href="?filter=popular">
+                    <button class="form-button" {% if filter_type == "popular" %}disabled{% endif %}>Most Popular</button>
+                </a>
+                <a href="?filter=mine">
+                    <button class="form-button" {% if filter_type == "mine" %}disabled{% endif %}>My Rooms</button>
+                </a>
             </div>
 
-        {% else %}
-            <p>No chat rooms yet. Be the first to create one!</p>
-        {% endif %}
+            <!-- Chat Rooms List -->
+            {% if page_obj %}
+                <ul class="rooms">
+                    {% for room in page_obj %}
+                        <li class="room-card">
+                            <h3>{{ room.subject }}</h3>
+                            <a href="{% url 'chat-room' room.id %}">
+                                <button class="form-button">Join Room</button>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
 
+                <!-- Pagination -->
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?filter={{ filter_type }}&page={{ page_obj.previous_page_number }}">← Previous</a>
+                    {% endif %}
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?filter={{ filter_type }}&page={{ page_obj.next_page_number }}">Next →</a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>No chat rooms found.</p>
+            {% endif %}
+
+        </div>
     </div>
 
+    <!-- Create Room Panel (Right) -->
+    <div class="window social-window right-window">
+        <div class="window-titlebar">Create Chat Room</div>
+        <div class="window-content">
+            <form method="post">
+                {% csrf_token %}
 
-    <!-- RIGHT: Create room -->
-    <div class="chat-room-create">
+                <div class="form-field">
+                    <label>Room Topic</label>
+                    <input type="text" name="subject" required class="form-input">
+                </div>
 
-        <h2>Create Chat Room</h2>
+                <div class="form-field">
+                    <label>Invite Users (comma separated)</label>
+                    <input type="text" name="participants" placeholder="alice,bob,charlie" class="form-input">
+                </div>
 
-        <form method="post">
-            {% csrf_token %}
+                <button type="submit" class="form-button">Create Room</button>
+            </form>
 
-            <div class="form-field">
-                <label>Room Topic</label>
-                <input type="text" name="subject" required>
-            </div>
+            <hr>
 
-            <div class="form-field">
-                <label>Invite users (comma separated usernames)</label>
-                <input type="text" name="participants" placeholder="alice,bob,charlie">
-            </div>
-
-            <button type="submit">Create Room</button>
-        </form>
-
-        <hr>
-
-        <a href="{% url 'landing' %}">
-            <button>Back to Dashboard</button>
-        </a>
-
+            <a href="{% url 'landing' %}">
+                <button class="form-button">Back to Dashboard</button>
+            </a>
+        </div>
     </div>
 
 </div>

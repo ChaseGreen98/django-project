@@ -1,0 +1,1145 @@
+
+body {
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    background-color: #ece9d8; 
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #000080; 
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.welcome-banner {
+    background-color: #c0c0c0; 
+    color: #000;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-bottom: 2px solid #808080; 
+    border-top: 2px solid #fff;
+}
+
+button {
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px;
+    background-color: #e0e0e0; 
+    border: 2px solid #808080; 
+    cursor: pointer;
+    box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #808080 inset; 
+}
+
+button:hover {
+    background-color: #d4d0c8; 
+}
+
+input[type="text"], input[type="password"], select {
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px;
+    padding: 4px 6px;
+    border: 2px solid #808080;
+    background-color: #fff;
+    box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+}
+
+.user-list, .chat-room-list, .chat-room-create, .admin-page, .account-container {
+    background-color: #f0f0f0;
+    padding: 12px;
+    border: 2px solid #808080;
+    margin: 12px;
+}
+
+.user-cards, .room-card, .computer-card {
+    background-color: #e0e0e0;
+    border: 2px solid #808080;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+h2, h3 {
+    font-size: 16px;
+    margin: 4px 0 8px 0;
+}
+
+.social-layout {
+    display: flex;
+    gap: 20px;
+}
+
+.chat-room-list {
+    flex: 2;
+}
+
+.chat-room-create {
+    flex: 1;
+}
+
+.pagination {
+    margin-top: 8px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 2px 6px;
+    margin: 0 2px;
+    border: 2px solid #808080;
+    background-color: #e0e0e0;
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+}
+
+.pagination a:hover {
+    background-color: #d4d0c8;
+}
+
+.form-field {
+    margin-bottom: 8px;
+}
+
+label {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.root-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    gap: 20px;
+}
+.root-button {
+    display: inline-block;
+    width: 220px;
+    text-align: center;
+
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+
+    padding: 14px 0;
+    text-decoration: none;
+    color: #000;
+
+    background-color: #e0e0e0;
+    border: 2px solid #808080;
+
+    box-shadow:
+        inset 1px 1px 0 #ffffff,
+        inset -1px -1px 0 #404040;
+}
+
+.root-button:hover {
+    background-color: #d4d0c8;
+}
+
+.root-button:active {
+    box-shadow:
+        inset -1px -1px 0 #ffffff,
+        inset 1px 1px 0 #404040;
+}
+
+.win95-window {
+    width: 700px; 
+    margin-top: 40px;
+
+    background-color: #c0c0c0;
+    border: 2px solid #808080;
+
+    box-shadow:
+        inset 2px 2px 0 #ffffff,
+        inset -2px -2px 0 #404040;
+}
+
+.win95-titlebar {
+    background-color: #000080;
+    color: #ffffff;
+
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 16px;        
+    font-weight: bold;
+
+    padding: 6px 12px;     
+}
+
+
+.win95-content {
+    background-color: #f0f0f0;
+
+    padding: 20px;          
+    min-height: 220px;       
+
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 15px;        
+    color: #000;
+}
+
+.win95-content p {
+    margin-top: 0;
+}
+
+.win95-content ul {
+    margin: 8px 0 0 16px;
+    padding: 0;
+}
+
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.auth-window {
+    width: 420px;
+}
+.auth-form p {
+    margin-bottom: 12px;
+}
+
+.auth-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+.auth-actions {
+    margin-top: 16px;
+    text-align: right;
+}
+.win95-divider {
+    border: none;
+    border-top: 2px solid #808080;
+    border-bottom: 2px solid #ffffff;
+    margin: 18px 0;
+}
+.auth-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+.win95-button.secondary {
+    background-color: #d4d0c8;
+}
+
+/* DESKTOP */
+.desktop {
+    min-height: calc(100vh - 40px);
+    background: #008080;
+    padding: 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center; /* vertical centering */
+    justify-content: flex-start;
+}
+
+/* DESKTOP LOGO */
+.desktop-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* prevents shrinking */
+    margin-left: 100px; /* pushes it further to the right */
+}
+
+.desktop-logo img {
+    max-width: 300px; /* roughly twice as big as before */
+    height: auto;
+    opacity: 0.6; /* subtle faded look */
+}
+
+/* ICONS */
+.desktop-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 120px;
+}
+
+.desktop-icon {
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+/* shared icon content */
+.icon-frame {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 6px;
+    color: black;
+}
+
+/* icon labels */
+.icon-frame span {
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* hover + press states */
+.desktop-icon:hover .icon-frame {
+    background: #d4d4d4;
+}
+
+.desktop-icon:active .icon-frame,
+.icon-button:active {
+    border: 2px inset #ffffff;
+}
+
+.icon-submit {
+    all: unset;
+    display: block;
+    cursor: pointer;
+}
+
+.icon-frame {
+    width: 100px;        
+    margin: 0 auto;   
+}
+
+
+/* WINDOWS */
+.window {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    width: 450px;
+}
+
+.window-titlebar {
+    background: #000080;
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.window-content {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.right-window {
+    margin-left: auto;
+    margin-right: 3rem;
+}
+
+/* TASKBAR */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #c0c0c0;
+    border-top: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.5rem;
+}
+
+.start-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+.taskbar-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+
+/* BUILDER PAGE */
+.builder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #808080;
+    background: #d4d0c8;
+}
+
+.builder-nav a button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 6px 12px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.builder-title input[type="text"] {
+    padding: 4px 6px;
+    border: 2px inset #ffffff;
+    width: 200px;
+    background: #e0e0e0;
+}
+
+.builder-title button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* PC INFO CONTAINER */
+.pc-info-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 2rem;
+    justify-content: flex-start;
+}
+
+/* INDIVIDUAL PART SLOTS */
+.part-slot {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    padding: 1rem;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1rem;
+    transition: background 0.2s ease;
+}
+
+.part-slot:hover {
+    background: #d4d0c8; /* slightly lighter gray on hover */
+}
+
+/* HEADER OF SLOT */
+.part-slot h3 {
+    background: #000080;
+    color: white;
+    padding: 2px 6px;
+    font-weight: bold;
+    margin: -1rem -1rem 0.5rem -1rem;
+    border-bottom: 2px solid #ffffff;
+    text-align: center;
+}
+
+/* PART INFO TEXT */
+.part-slot p {
+    background: #e0e0e0;
+    border: 2px inset #ffffff;
+    padding: 4px 6px;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* REMOVE / SELECT BUTTONS */
+.part-slot button, 
+.part-slot a button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 0.25rem;
+    width: 100%;
+}
+
+.part-slot button:active,
+.part-slot a button:active {
+    border: 2px inset #ffffff;
+}
+
+.part-slot a {
+    text-decoration: none;
+}
+
+
+/* PART LIST PAGE */
+.part-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.part-list-header h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #000080;
+}
+
+.part-list-header a button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.part-list-header a button:active {
+    border: 2px inset #ffffff;
+}
+
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 4px 6px;
+    border: 2px inset #ffffff;
+    background: #e0e0e0;
+}
+
+.search-form button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-form button:active {
+    border: 2px inset #ffffff;
+}
+
+.parts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    justify-items: center; 
+}
+
+.part-card {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    padding: 1rem;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.2s ease;
+}
+
+.part-card:hover {
+    background: #d4d0c8;
+}
+
+.part-card p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.part-card button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.part-card button:active {
+    border: 2px inset #ffffff;
+}
+
+/* PAGINATION */
+.pagination {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.pagination a {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 8px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.pagination a:active {
+    border: 2px inset #ffffff;
+}
+
+.pagination span {
+    font-weight: bold;
+}
+
+
+/* PC LIST / MY BUILDS */
+.pc-list-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pc-list-header button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pc-list-header button:active {
+    border: 2px inset #ffffff;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* Search form */
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-form input[type="text"] {
+    padding: 4px 6px;
+    border: 2px inset #ffffff;
+    background: #c0c0c0;
+    font-size: 0.9rem;
+}
+
+.search-form button {
+    padding: 4px 8px;
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-form button:active {
+    border: 2px inset #ffffff;
+}
+
+/* Computer list styling */
+.computer-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.computer-list li {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.computer-list li strong {
+    font-weight: bold;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.computer-list a {
+    text-decoration: none;
+    color: black;
+    padding: 2px 6px;
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    cursor: pointer;
+}
+
+.computer-list a:active {
+    border: 2px inset #ffffff;
+}
+
+.computer-list button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+.computer-list button:active {
+    border: 2px inset #ffffff;
+}
+
+/* Hover highlights for computer list items */
+.computer-list li:hover {
+    background: #d4d4d4; /* Slightly lighter gray */
+    box-shadow: inset -2px -2px #a0a0a0, inset 2px 2px #ffffff;
+}
+
+/* Hover for buttons and links */
+.computer-list a:hover,
+.computer-list button:hover,
+.search-form button:hover,
+.pc-list-header button:hover,
+.pagination a:hover {
+    background: #d4d4d4;
+    border: 2px outset #ffffff;
+}
+
+/* Active state to mimic old-school inset button press */
+.computer-list a:active,
+.computer-list button:active,
+.search-form button:active,
+.pc-list-header button:active,
+.pagination a:active {
+    border: 2px inset #ffffff;
+}
+
+
+/* Pagination */
+.pagination {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.pagination a {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 6px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.pagination a:active {
+    border: 2px inset #ffffff;
+}
+
+.pagination span {
+    font-weight: bold;
+}
+
+
+/* Admin Container for Side-by-Side Layout */
+.admin-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap; /* allows stacking on small screens */
+    justify-content: center;
+}
+
+/* Admin Windows Panels */
+.admin-section {
+    flex: 1 1 300px; /* grow, shrink, min-width */
+}
+
+.admin-window {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    margin: auto;
+}
+
+.window-titlebar {
+    background: #000080;
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.window-content {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* User and Chat Cards */
+.user-card {
+    background: #d4d4d4;
+    border: 2px solid #808080;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-card:hover {
+    background: #e0e0e0;
+    box-shadow: inset -1px -1px #a0a0a0, inset 1px 1px #ffffff;
+}
+
+/* Buttons */
+.user-card button,
+.search-form button,
+.nav-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.user-card button:hover,
+.search-form button:hover,
+.nav-button:hover {
+    background: #d4d4d4;
+}
+
+.user-card button:active,
+.search-form button:active,
+.nav-button:active {
+    border: 2px inset #ffffff;
+}
+
+/* Search Inputs */
+.search-form input[type="text"] {
+    border: 2px inset #ffffff;
+    padding: 2px 4px;
+    margin-right: 0.5rem;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.pagination a {
+    text-decoration: none;
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.pagination a:hover {
+    background: #d4d4d4;
+}
+
+.pagination a:active {
+    border: 2px inset #ffffff;
+}
+
+/* ACCOUNT PAGE */
+.account-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+/* Side by Side Windows */
+.account-windows-sideby {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap; /* ensures it doesn't break on smaller screens */
+}
+
+/* Windows Style Panels */
+.account-window {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    flex: 1; /* evenly splits available space */
+    min-width: 300px; /* ensures it doesn't shrink too small */
+}
+
+.window-titlebar {
+    background: #000080;
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.window-content {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* Buttons */
+.nav-button,
+.action-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.nav-button:hover,
+.action-button:hover {
+    background: #d4d4d4;
+}
+
+.nav-button:active,
+.action-button:active {
+    border: 2px inset #ffffff;
+}
+
+
+/* FORM WINDOWS */
+.form-window {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    max-width: 450px;
+    margin: 2rem auto;
+}
+
+.form-window .window-titlebar {
+    background: #000080;
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.form-window .window-content {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+/* FORM BUTTONS */
+.form-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background: #d4d4d4;
+}
+
+.form-button:active {
+    border: 2px inset #ffffff;
+}
+
+
+/* FORM WINDOWS */
+.form-window {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    max-width: 450px;
+    margin: 2rem auto;
+}
+
+.form-window .window-titlebar {
+    background: #000080;
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.form-window .window-content {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+/* FORM BUTTONS */
+.form-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background: #d4d4d4;
+}
+
+.form-button:active {
+    border: 2px inset #ffffff;
+}
+
+
+/* SOCIAL WINDOWS */
+.social-window {
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    width: 45%;
+    margin: 1rem;
+}
+
+.social-window.right-window {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.social-window .window-titlebar {
+    background: #000080;
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.social-window .window-content {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* Fix input width so it doesn't touch window edges */
+.social-window .form-input {
+    width: 95%;       /* leave a little space on the right */
+    padding: 4px 6px;
+    border: 2px inset #ffffff;
+    font-size: 0.9rem;
+    box-sizing: border-box; /* ensures padding & border are included in width */
+}
+
+/* Chat Rooms List */
+.rooms {
+    list-style-type: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.room-card {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.room-card:hover {
+    background: #d4d4d4;
+}
+
+/* Form Fields */
+.form-field {
+    margin-bottom: 0.75rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 4px 6px;
+    border: 2px inset #ffffff;
+    font-size: 0.9rem;
+}
+
+.form-input:focus {
+    border: 2px outset #ffffff;
+}
+
+/* Buttons */
+.form-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 10px;
+    margin-top: 0.25rem;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background: #d4d4d4;
+}
+
+.form-button:active {
+    border: 2px inset #ffffff;
+}
+
+/* CHAT ROOM */
+.chat-window {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0;
+    border: 2px solid #000;
+    background: #c0c0c0;
+    box-shadow: inset -2px -2px #808080, inset 2px 2px #ffffff;
+    font-family: "Courier New", monospace;
+}
+
+.chat-header {
+    background: #000080;
+    color: white;
+    padding: 6px 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-leave-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.chat-leave-button:active {
+    border: 2px inset #ffffff;
+}
+
+.chat-log {
+    padding: 0.5rem;
+    height: 400px;
+    overflow-y: scroll;
+    background: #e0e0e0;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #808080;
+}
+
+.chat-message {
+    margin-bottom: 0.25rem;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    border-top: 2px solid #808080;
+    border-bottom: 2px solid #ffffff;
+    background: #d4d4d4;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 4px 6px;
+    border: 2px inset #ffffff;
+    font-family: "Courier New", monospace;
+    box-sizing: border-box;
+}
+
+.chat-send-button {
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.chat-send-button:active {
+    border: 2px inset #ffffff;
+}
+
+/* Hover highlight for messages */
+.chat-message:hover {
+    background: #d4d4d4;
+}
+

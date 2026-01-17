@@ -1,17 +1,22 @@
 {% extends "root.html" %}
 
 {% block content %}
-<h2>Change Password</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="window form-window">
+    <div class="window-titlebar">Change Password</div>
+    <div class="window-content">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-    <div style="margin-top: 1rem;">
-        <button type="submit">Update Password</button>
-        <a href="{% url 'landing' %}">
-            <button type="button">Cancel</button>
-        </a>
+            <div style="margin-top: 1rem;">
+                <button type="submit" class="form-button">Update Password</button>
+                <a href="{% url 'landing' %}">
+                    <button type="button" class="form-button">Cancel</button>
+                </a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
 {% endblock %}

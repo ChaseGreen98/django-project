@@ -78,31 +78,38 @@ def account_view(request):
 
 @login_required
 def social_view(request):
-    query = request.GET.get("q", "")
-    
+    filter_type = request.GET.get("filter", "popular")
+
     if request.method == "POST":
         subject = request.POST.get("subject")
-        usernames = request.POST.get("usernames", "").split(",")
+        participants = request.POST.get("participants", "").split(",")
+
         conversation = Conversation.objects.create(subject=subject)
         conversation.participants.add(request.user)
 
-        for username in usernames:
+        for username in participants:
             username = username.strip()
+            if not username:
+                continue
             try:
                 user = User.objects.get(username=username)
                 conversation.participants.add(user)
             except User.DoesNotExist:
-                pass  
+                pass
 
         return redirect("chat-room", conversation_id=conversation.id)
 
     conversations = Conversation.objects.all()
-    if query:
-        conversations = conversations.filter(subject__icontains=query)
-    
-    conversations = conversations.annotate(
-        num_messages=models.Count('messages')
-    ).order_by('-num_messages')
+
+    if filter_type == "mine":
+        conversations = conversations.filter(
+            participants=request.user
+        ).distinct()
+
+    else:  # popular
+        conversations = conversations.annotate(
+            num_participants=Count("participants")
+        ).order_by("-num_participants")
 
     paginator = Paginator(conversations, 10)
     page_number = request.GET.get("page")
@@ -110,7 +117,7 @@ def social_view(request):
 
     return render(request, "social.html", {
         "page_obj": page_obj,
-        "query": query,
+        "filter_type": filter_type,
     })
 
 
@@ -144,13 +151,13 @@ def user_update_view(request):
 
 @login_required
 def delete_view(request):
-    if request.method == "POST":
-        user = request.user
-        logout(request)
-        user.delete()
+    if request.method != "POST":
+        return redirect("root") 
 
-        return redirect("landing")
-    return redirect("account")
+    user = request.user
+    logout(request)
+    user.delete()
+    return redirect("sign_up")
 
 @login_required
 def generic_part_list(request, pk, part_type):
@@ -218,9 +225,9 @@ def delete_computer(request, pk):
 
     if request.method == "POST":
         computer.delete()
-        return redirect("pc_list")
+        return redirect("pc-list")
 
-    return redirect("pc_list")
+    return redirect("pc-list")
 
 
 @require_POST
@@ -243,6 +250,11 @@ def add_part(request, pk, part_type, part_id):
     model = part_models.get(part_type)
     if not model:
         return redirect("builder", pk=pk)
+    
+    if request.POST.get("remove"):
+        setattr(computer, part_type, None)
+        computer.save()
+        return redirect("builder", pk=pk)
 
     part = get_object_or_404(model, pk=part_id)
     setattr(computer, part_type, part)
@@ -263,10 +275,29 @@ def chat_room_view(request, conversation_id):
 @staff_member_required
 @login_required
 def admin_view(request):
-    users = User.objects.all()
-    paginator = Paginator(users, 10)
-    page_obj = paginator.get_page(request.GET.get("page"))
-    return render(request, "admin.html", {"page_obj": page_obj})
+    user_query = request.GET.get("user_q", "").strip()
+    chat_query = request.GET.get("chat_q", "").strip()
+
+    users = User.objects.all().order_by("username")
+    if user_query:
+        users = users.filter(username__icontains=user_query)
+    user_paginator = Paginator(users, 10)
+    user_page_number = request.GET.get("user_page") or 1
+    user_page_obj = user_paginator.get_page(user_page_number)
+
+    conversations = Conversation.objects.all().order_by("-created_at")
+    if chat_query:
+        conversations = conversations.filter(subject__icontains=chat_query)
+    chat_paginator = Paginator(conversations, 10)
+    chat_page_number = request.GET.get("chat_page") or 1
+    chat_page_obj = chat_paginator.get_page(chat_page_number)
+
+    return render(request, "admin.html", {
+        "user_page_obj": user_page_obj,
+        "chat_page_obj": chat_page_obj,
+        "user_query": user_query,
+        "chat_query": chat_query,
+    })
 
 @staff_member_required
 @require_POST         
@@ -277,4 +308,11 @@ def admin_delete(request, pk):
         return redirect("admin") 
         
     target.delete()
+    return redirect("admin")
+
+@staff_member_required
+def admin_delete_conversation(request, pk):
+    if request.method == "POST":
+        conversation = get_object_or_404(Conversation, pk=pk)
+        conversation.delete()
     return redirect("admin")
